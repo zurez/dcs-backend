@@ -8,7 +8,14 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/", ApiRoutes);
+// https://stackoverflow.com/questions/53048642/node-js-handle-body-parser-invalid-json-error
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    return res.sendStatus(400);
+  }
 
+  next();
+});
 if (!module.parent) {
   app.listen(PORT);
 }

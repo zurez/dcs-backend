@@ -21,7 +21,10 @@ export class MetricService {
   }
 
   async handlePostMetric({ key, value }) {
-    const ret = await db.updateRecords(key, value);
+    if (isNaN(value)) {
+      throw new Error("Value must be an integer");
+    }
+    const ret = await db.updateRecords(key, parseInt(value));
     return {};
   }
 }
