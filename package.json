@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js --exec babel-node --presets babel-preset-env",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-    "start": "npm run build && pm2 dist/src/index.js"
+    "start": "npm run build && pm2 start dist/src/index.js",
+    "stop": "pm2 stop all"
   },
   "keywords": [
     "dsc",
